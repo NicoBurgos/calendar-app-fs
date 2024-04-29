@@ -1,0 +1,22 @@
+.cell {
+	border: 2px solid gray;
+	min-height: 70px;
+	display: flex;
+	padding-top: 10px;
+	background-color: white;
+	flex-direction: column;
+}
+
+.cell-month {
+	padding-top: 0;
+	justify-content: center;
+	cursor: pointer;
+}
+
+.categories-container {
+	display: flex;
+	flex-direction: row;
+	gap: 5px;
+	flex-wrap: wrap;
+	justify-content: center;
+}

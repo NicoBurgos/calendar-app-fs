@@ -1,0 +1,7 @@
+.category-pin {
+	background-color: #ffae00;
+	border-radius: 50%;
+	width: 20px;
+	box-shadow: 2px 2px 5px #888888;
+	text-align: center;
+}

@@ -1,0 +1,39 @@
+.category-container {
+	padding: 10px;
+	min-width: 200px;
+	border: 2px solid black;
+	display: flex;
+	flex-direction: column;
+	gap: 5px;
+}
+.active {
+	background-color: blueviolet;
+}
+.category-item {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	cursor: pointer;
+	max-height: 10px;
+}
+
+.category-pin-item {
+	display: block;
+}
+
+.category-item-title {
+	padding: 0 5px;
+	display: block;
+	width: 80%;
+	text-transform: capitalize;
+}
+.delete-button {
+	text-align: center;
+	display: block;
+	width: 20%;
+	cursor: pointer;
+}
+
+.material-icons {
+	font-size: 16px;
+}

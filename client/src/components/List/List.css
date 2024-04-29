@@ -1,0 +1,40 @@
+form {
+	display: flex;
+	flex-direction: column;
+	gap: 5px;
+}
+
+label,
+input {
+	display: block;
+}
+li {
+	list-style: none;
+}
+
+.category-container {
+	min-width: 280px;
+	background-color: white;
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.inputs {
+	display: flex;
+	justify-content: space-between;
+	gap: 5px;
+}
+
+#add-category {
+	width: 80%;
+}
+
+.list-container {
+	display: flex;
+	flex-direction: column;
+	gap: 5px;
+}
+
+.button-category {
+	background-color: rgb(149, 231, 234);
+}

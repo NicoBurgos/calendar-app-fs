@@ -1,0 +1,25 @@
+.title-container-days {
+	padding-bottom: 5px;
+	display: flex;
+	justify-content: space-between;
+}
+
+.title-days {
+	display: grid;
+	grid-template-columns: repeat(7, 1fr);
+}
+
+.title-container-month {
+	padding-bottom: 5px;
+	display: flex;
+	justify-content: center;
+}
+
+h2 {
+	cursor: pointer;
+}
+
+button {
+	background-color: transparent;
+	cursor: pointer;
+}

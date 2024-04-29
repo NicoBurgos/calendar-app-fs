@@ -1,0 +1,17 @@
+main {
+	padding: 10px;
+	background-color: lightgoldenrodyellow;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: space-around;
+	height: 96vh;
+}
+
+.calendar-container {
+	padding: 10px;
+	width: 600px;
+	border: 2px solid black;
+	text-align: center;
+	background-color: white;
+}
