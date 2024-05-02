@@ -11,3 +11,5 @@ Calendar App made with NodeJS, Express, Swagger, PostgreSQL, Vite, React, Custom
   - Remove a task from a day
 
 [Try it](https://calendar-app-client-pern.onrender.com/)
+
+#### Warning: request to the backend can be delayed by 50 seconds or more in render.com
