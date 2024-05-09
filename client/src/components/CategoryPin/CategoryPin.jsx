@@ -1,9 +1,8 @@
 import './CategoryPin.css'
-import { useContext } from 'react'
-import { CategoriesContext } from '../../context/CategoriesContext'
+import { useCategoriesStore } from '../../store/categoriesStore'
 
 export const CategoryPin = ({ category }) => {
-	const { categories } = useContext(CategoriesContext)
+	const { categories } = useCategoriesStore()
 	const category_name = category.category_name || category.name
 	const color = categories.find((cat) => cat.name == category_name)
 	return (

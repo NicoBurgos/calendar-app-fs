@@ -1,14 +1,11 @@
 import './CalendarTitle.css'
-import { useContext } from 'react'
-import { CurrentModeContext } from '../../context/CurrentModeContext'
-import { CurrentMonthContext } from '../../context/CurrentMonthContext'
 import { useHandleMonths } from '../../hooks/useHandleMonths'
+import { useSettingsStore } from '../../store/settingsStore'
 
 export const CalendarTitle = () => {
-	const { currentMode, changeCurrentMode } = useContext(CurrentModeContext)
-	const { currentMonth, changeCurrentMonth } = useContext(CurrentMonthContext)
+	const { currentMonth, currentMode } = useSettingsStore()
 	const { handlePrevMonth, handleNextMonth, handleTitleClick } =
-		useHandleMonths(currentMonth, changeCurrentMonth, changeCurrentMode)
+		useHandleMonths()
 	if (currentMode === false) {
 		return (
 			<>

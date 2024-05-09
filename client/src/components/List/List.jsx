@@ -1,39 +1,15 @@
 import './List.css'
-import { useContext } from 'react'
-import { CategoriesContext } from '../../context/CategoriesContext'
-import { CurrentCategoryContext } from '../../context/CurrentCategoryContext'
-import { InputContext } from '../../context/InputContext'
-import { CategoriesByDayContext } from '../../context/CategoriesByDayContext'
-import { useCategoryList } from '../../hooks/useCategoryList'
 import { CategoryListItem } from '../CategoryListItem/CategoryListItem'
+import { useCategoryList } from '../../hooks/useCategoryList'
+import { useCategoriesStore } from '../../store/categoriesStore'
+import { useInputStore } from '../../store/inputsStore'
 
 export const List = () => {
-	const { categories, changeCategories } = useContext(CategoriesContext)
-	const { categoriesByDay, changeCategoriesByDay } = useContext(
-		CategoriesByDayContext
-	)
-	const { currentCategory, changeCurrentCategory } = useContext(
-		CurrentCategoryContext
-	)
-	const {
-		inputCategory,
-		selectedColor,
-		onChangeInput,
-		resetInput,
-		handleColorChange,
-	} = useContext(InputContext)
-	const { handleSubmit, isEditing, changeEditing } = useCategoryList(
-		inputCategory,
-		selectedColor,
-		categories,
-		changeCategories,
-		resetInput,
-		currentCategory,
-		changeCurrentCategory,
-		categoriesByDay,
-		changeCategoriesByDay
-	)
+	const { categories } = useCategoriesStore()
+	const { inputCategory, selectedColor } = useInputStore()
+	const { onChangeInput, updateSelectedColor } = useInputStore()
 
+	const { handleSubmit, isEditing, changeEditing } = useCategoryList()
 	return (
 		<div className="category-container">
 			<div className="input-container">
@@ -55,7 +31,7 @@ export const List = () => {
 							id="colorPicker"
 							name="colorPicker"
 							value={selectedColor}
-							onChange={handleColorChange}
+							onChange={(e) => updateSelectedColor(e.target.value)}
 						></input>
 					</div>
 

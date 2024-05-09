@@ -1,16 +1,15 @@
 import './CalendarMonth.css'
-import { useContext } from 'react'
-import { CurrentModeContext } from '../../context/CurrentModeContext'
-import { CurrentMonthContext } from '../../context/CurrentMonthContext'
 import { Cell } from '../Cell/Cell'
 import { data } from '../../data/CalendarData'
+import { useSettingsStore } from '../../store/settingsStore'
 
 export const CalendarMonth = () => {
-	const { currentMode, changeCurrentMode } = useContext(CurrentModeContext)
-	const { changeCurrentMonth } = useContext(CurrentMonthContext)
+	const { currentMode, updateCurrentMode } = useSettingsStore()
+	const { updateCurrentMonth } = useSettingsStore()
+
 	const handleMonthClick = (month) => {
-		changeCurrentMonth(month)
-		changeCurrentMode(false)
+		updateCurrentMonth(month)
+		updateCurrentMode(false)
 	}
 
 	if (currentMode === true) {

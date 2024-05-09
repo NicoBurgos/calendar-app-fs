@@ -15,7 +15,7 @@ export const pool = new pg.Pool({
 	database: DB_DATABASE,
 	port: DB_PORT,*/
 	connectionString: DB_STRING,
-	ssl: true,
+	//ssl: true,
 })
 
 pool.connect((err, client, release) => {

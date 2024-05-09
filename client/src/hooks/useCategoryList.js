@@ -1,18 +1,20 @@
 import { useState } from 'react'
 import { API } from '../api/categories.api'
+import { useCategoriesStore } from '../store/categoriesStore'
+import { useInputStore } from '../store/inputsStore'
 
-export const useCategoryList = (
-	inputCategory,
-	selectedColor,
-	categories,
-	changeCategories,
-	resetInput,
-	currentCategory,
-	changeCurrentCategory,
-	categoriesByDay,
-	changeCategoriesByDay
-) => {
+export const useCategoryList = () => {
 	const [isEditing, setIsEditing] = useState(false)
+	const {
+		addCategory,
+		editCategory,
+		editCategoriesByDay,
+		updateCurrentCategory,
+	} = useCategoriesStore()
+	const { currentCategory } = useCategoriesStore()
+	const { inputCategory, selectedColor } = useInputStore()
+	const { resetInput } = useInputStore()
+
 	const changeEditing = (value) => {
 		setIsEditing(value)
 	}
@@ -32,15 +34,11 @@ export const useCategoryList = (
 					name: categoryInput,
 					color: selectedColor,
 				})
-
-				const newCategories = [...categories, category.data.data]
-				changeCategories(newCategories)
+				addCategory(category.data.data)
 			} catch (error) {
 				error
 			}
 		} else {
-			//editing
-
 			const id = currentCategory.id
 			const prevName = currentCategory.name
 			if (
@@ -48,50 +46,21 @@ export const useCategoryList = (
 				currentCategory.color != selectedColor
 			) {
 				try {
-					let data
-					if (
-						currentCategory.name != categoryInput &&
-						currentCategory.color == selectedColor
-					) {
-						data = {
-							name: categoryInput,
-						}
-					} else if (
-						currentCategory.name == categoryInput &&
-						currentCategory.color != selectedColor
-					) {
-						data = { color: selectedColor }
-					} else {
-						data = {
-							name: categoryInput,
-							color: selectedColor,
-						}
+					let data = {}
+					if (currentCategory.name !== categoryInput) {
+						data.name = categoryInput
+					}
+
+					if (currentCategory.color !== selectedColor) {
+						data.color = selectedColor
 					}
 
 					await API.editCategory(id, data)
 					changeEditing(false)
 
-					const newCategories = categories.map((cat) => {
-						if (cat.id == id) {
-							cat.name = categoryInput
-							cat.color = selectedColor
-							return cat
-						} else {
-							return cat
-						}
-					})
+					editCategory(id, categoryInput, selectedColor)
 
-					changeCategories(newCategories)
-
-					const newCategoriesByDay = categoriesByDay.map((cat) => {
-						if (cat.category_name == prevName) {
-							cat.category_name = categoryInput
-							return cat
-						} else {
-							return cat
-						}
-					})
-					changeCategoriesByDay(newCategoriesByDay)
+					editCategoriesByDay(prevName, categoryInput)
 				} catch (error) {
 					error
 				}
@@ -99,7 +68,7 @@ export const useCategoryList = (
 		}
 
 		resetInput()
-		changeCurrentCategory(null)
+		updateCurrentCategory(null)
 	}
 
 	return {

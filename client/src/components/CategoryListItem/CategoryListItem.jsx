@@ -1,31 +1,15 @@
 import './CategoryListItem.css'
-import { useContext } from 'react'
-import { CurrentCategoryContext } from '../../context/CurrentCategoryContext'
-import { CategoriesContext } from '../../context/CategoriesContext'
-import { CategoriesByDayContext } from '../../context/CategoriesByDayContext'
-import { useCategoryListItem } from '../../hooks/useCategoryListItem'
-import { InputContext } from '../../context/InputContext'
 import { CategoryPin } from '../CategoryPin/CategoryPin'
+import { useCategoryListItem } from '../../hooks/useCategoryListItem'
+import { useCategoriesStore } from '../../store/categoriesStore'
+import { useInputStore } from '../../store/inputsStore'
 
 export const CategoryListItem = ({ category, changeEditing }) => {
-	const { currentCategory, changeCurrentCategory } = useContext(
-		CurrentCategoryContext
-	)
-	const { categoriesByDay, changeCategoriesByDay } = useContext(
-		CategoriesByDayContext
-	)
-	const { resetInput } = useContext(InputContext)
-	const { categories, changeCategories } = useContext(CategoriesContext)
-	const { changeSelectedColor, changeInputCategory } = useContext(InputContext)
+	const { resetInput, updateSelectedColor, updateInputCategory } =
+		useInputStore()
+	const { currentCategory } = useCategoriesStore()
 	const { handleClickCategory, handleDeleteCategory, handleEditCategory } =
-		useCategoryListItem(
-			currentCategory,
-			changeCurrentCategory,
-			categories,
-			changeCategories,
-			categoriesByDay,
-			changeCategoriesByDay
-		)
+		useCategoryListItem()
 
 	return (
 		<li>
@@ -55,8 +39,8 @@ export const CategoryListItem = ({ category, changeEditing }) => {
 							handleEditCategory(
 								category,
 								changeEditing,
-								changeSelectedColor,
-								changeInputCategory
+								updateSelectedColor,
+								updateInputCategory
 							)
 						}
 					>

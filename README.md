@@ -1,6 +1,6 @@
 # Calendar App 2024
 
-Calendar App made with NodeJS, Express, Swagger, PostgreSQL, Vite, React, Custom Hooks, and Context.
+Calendar App made with NodeJS, Express, Swagger, PostgreSQL, Vite, React, Custom Hooks, and Zustand.
 
 ![Preview](https://i.postimg.cc/dtpGB6bT/Screenshot-32.png)
 

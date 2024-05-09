@@ -1,25 +1,25 @@
 import { data } from '../data/CalendarData'
-export const useHandleMonths = (
-	currentMonth,
-	setCurrentMonth,
-	setCurrentMode
-) => {
+import { useSettingsStore } from '../store/settingsStore'
+export const useHandleMonths = () => {
+	const { updateCurrentMonth, updateCurrentMode } = useSettingsStore()
+	const { currentMonth } = useSettingsStore()
+
 	const handlePrevMonth = () => {
 		const month = currentMonth.month
 		if (month === 'January') return
 		const monthIndex = data.findIndex((monthData) => monthData.month === month)
-		setCurrentMonth(data[monthIndex - 1])
+		updateCurrentMonth(data[monthIndex - 1])
 	}
 
 	const handleNextMonth = () => {
 		const month = currentMonth.month
 		if (month === 'December') return
 		const monthIndex = data.findIndex((monthData) => monthData.month === month)
-		setCurrentMonth(data[monthIndex + 1])
+		updateCurrentMonth(data[monthIndex + 1])
 	}
 
 	const handleTitleClick = () => {
-		setCurrentMode(true)
+		updateCurrentMode(true)
 	}
 
 	return {

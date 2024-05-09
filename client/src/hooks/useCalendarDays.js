@@ -1,24 +1,21 @@
 import { API } from '../api/tasks.api'
-export const useCalendarDays = (
-	categoriesByDay,
-	changeCategoriesByDay,
-	currentCategory
-) => {
+import { searchExistingCategoryByDay } from '../helpers/categoriesByDay'
+import { useCategoriesStore } from '../store/categoriesStore'
+export const useCalendarDays = () => {
+	const { addCategoryByDay, deleteCategoriesByDayId } = useCategoriesStore()
+	const { currentCategory, categoriesByDay } = useCategoriesStore()
+
 	const handleDayClick = async (day, month) => {
 		if (currentCategory === null) return
-		//if task exists delete it
-		const exists = categoriesByDay.find(
-			(el) =>
-				el.day === day &&
-				el.month === month &&
-				el.category_name == currentCategory.name
+		const exists = searchExistingCategoryByDay(
+			categoriesByDay,
+			day,
+			month,
+			currentCategory.name
 		)
 		if (exists) {
 			API.deleteTask(exists.id)
-			const newCategoriesByDay = categoriesByDay.filter(
-				(task) => task.id !== exists.id
-			)
-			changeCategoriesByDay(newCategoriesByDay)
+			deleteCategoriesByDayId(exists.id)
 		} else {
 			try {
 				const task = await API.addTask({
@@ -26,8 +23,7 @@ export const useCalendarDays = (
 					month,
 					day,
 				})
-				const newCategoriesByDay = [...categoriesByDay, task.data.data]
-				changeCategoriesByDay(newCategoriesByDay)
+				addCategoryByDay(task.data.data)
 			} catch (error) {
 				error
 			}

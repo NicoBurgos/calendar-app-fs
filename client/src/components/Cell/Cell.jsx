@@ -1,14 +1,15 @@
 import './Cell.css'
 import { CategoryPin } from '../CategoryPin/CategoryPin'
+import { useCategoriesStore } from '../../store/categoriesStore'
 
 export const Cell = ({
 	day,
 	handleCellClick,
 	currentMonth,
-	categoriesByDay,
 	currentMode,
 	month,
 }) => {
+	const { categoriesByDay } = useCategoriesStore()
 	if (currentMode === false) {
 		return (
 			<div

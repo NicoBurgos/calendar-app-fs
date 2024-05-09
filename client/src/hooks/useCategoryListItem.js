@@ -1,32 +1,28 @@
 import { API } from '../api/categories.api'
+import { useCategoriesStore } from '../store/categoriesStore'
 
-export const useCategoryListItem = (
-	currentCategory,
-	changeCurrentCategory,
-	categories,
-	changeCategories,
-	categoriesByDay,
-	changeCategoriesByDay
-) => {
+export const useCategoryListItem = () => {
+	const { deleteCategory, deleteCategoriesByDayName, updateCurrentCategory } =
+		useCategoriesStore()
+	const { currentCategory } = useCategoriesStore()
+
 	const handleClickCategory = (category, changeEditing, resetInput) => {
 		currentCategory == null
-			? changeCurrentCategory(category)
-			: changeCurrentCategory(null) & changeEditing(false) & resetInput()
+			? updateCurrentCategory(category)
+			: updateCurrentCategory(null) & changeEditing(false) & resetInput()
 	}
 
 	const handleDeleteCategory = async (id) => {
 		try {
 			const res = await API.deleteCategory(id)
-			const newCategories = categories.filter((task) => task.id !== id)
-			changeCategories(newCategories)
-			const newCategoriesByDay = categoriesByDay.filter(
-				(task) => task.category_name !== res.data.name
-			)
-			changeCategoriesByDay(newCategoriesByDay)
+			const name = res.data.name
+			//delete Category
+			deleteCategory(id)
+			deleteCategoriesByDayName(name)
 		} catch (error) {
 			error
 		}
-		changeCurrentCategory(null)
+		updateCurrentCategory(null)
 	}
 
 	const handleEditCategory = async (
